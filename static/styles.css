@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2em;
+}
+
+p {
+    color: #555;
+    font-size: 1.1em;
+}
+
+.form-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 90%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    position: relative;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    /* Light gray */
+    border-top: 4px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.result-container {
+    margin-top: 30px;
+}
+
+.interpretacion-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #888;
+}
+
+footer p {
+    font-size: 0.9em;
+}

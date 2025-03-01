@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpretador de Sueños</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Interpretador de Sueños</h1>
+            <p>Descubre el significado profundo de tus sueños.</p>
+        </header>
+
+        <div class="form-container">
+            <textarea id="sueno" placeholder="Escribe aquí tu sueño..." rows="6"></textarea>
+            <button id="interpretarBtn">
+                Interpretar Sueño
+                <div id="loadingSpinner" class="spinner" style="display:none;"></div> <!-- Círculo de carga -->
+            </button>
+        </div>
+
+        <!-- Recuadro para mostrar el resultado -->
+        <div id="resultado" class="result-container" style="display:none;">
+            <h2>Interpretación del Sueño:</h2>
+            <div class="interpretacion-box">
+                <p id="interpretacion"></p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Interpretador de Sueños</p>
+        </footer>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#interpretarBtn').click(function () {
+                const sueno = $('#sueno').val();
+
+                if (sueno.trim() === "") {
+                    alert("Por favor, ingresa un sueño.");
+                    return;
+                }
+
+                // Deshabilitar el botón y mostrar el círculo de carga
+                $('#interpretarBtn').prop('disabled', true);
+                $('#loadingSpinner').show();
+
+                $.ajax({
+                    url: '/interpretar_sueno',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ sueno: sueno }),
+                    success: function (response) {
+                        // Procesar el texto recibido para agregar los saltos de línea y negritas
+                        const formattedText = formatInterpretacion(response.interpretacion);
+
+                        // Mostrar el resultado y ocultar el círculo de carga
+                        $('#resultado').show();
+                        $('#interpretacion').html(formattedText); // Usamos .html() para procesar el formato
+
+                        // Restaurar el botón
+                        $('#interpretarBtn').prop('disabled', false);
+                        $('#loadingSpinner').hide();
+                    },
+                    error: function (error) {
+                        alert("Hubo un error al interpretar el sueño.");
+
+                        // Restaurar el botón en caso de error
+                        $('#interpretarBtn').prop('disabled', false);
+                        $('#loadingSpinner').hide();
+                    }
+                });
+            });
+
+            // Función para formatear el texto y agregar negritas y saltos de línea
+            function formatInterpretacion(text) {
+                // Reemplazar ** por <strong> y * por <br>
+                return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*/g, '<br>');
+            }
+        });
+    </script>
+</body>
+
+</html>
